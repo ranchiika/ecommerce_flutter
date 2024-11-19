@@ -1,68 +1,112 @@
 import 'package:e_commerce/consts.dart';
 import 'package:e_commerce/models/products.dart';
 import 'package:e_commerce/ui/detail/detail_screen.dart';
+import 'package:e_commerce/ui/home/components/bottom_nav_bar.dart';
 import 'package:e_commerce/ui/home/components/cetegories.dart';
 import 'package:e_commerce/ui/home/components/item_card.dart';
+import 'package:e_commerce/ui/profiles/profile_screen.dart';
+import 'package:e_commerce/ui/settings/settings_screen.dart';
+import 'package:e_commerce/ui/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
-class CatalogueScreen extends StatelessWidget {
+class CatalogueScreen extends StatefulWidget {
   const CatalogueScreen({super.key});
+
+  @override
+  State<CatalogueScreen> createState() => _CatalogueScreenState();
+}
+
+class _CatalogueScreenState extends State<CatalogueScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _widgetOptions = <Widget>[
+    const CatalogueScreen(),
+    const FavouritePage(),
+    const SettingBeneran(),
+    const ProfileScreen()
+  ];
+
+  void _onItemTapped(int index){ //klo itemnya di tap
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, //app bar yang ada iconya.
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
-        elevation: 0, //itu buat z cordinate buat menghilangkan effect batyangan. (Elevation = bayangan)
+        elevation: 0,
         actions: [
+          // IconButton(
+          //   onPressed: (){},
+          //   icon: const Icon(Icons.search),
+          // ),
           IconButton(
             onPressed: (){},
-            icon: const Icon(Icons.search)
+            icon: const Icon(Icons.shopping_cart_outlined),
           ),
-          IconButton(
-            onPressed: (){},
-            icon: const Icon(Icons.shopping_cart_outlined)
-          )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, //biar melawan arah default
+      body: _selectedIndex == 0
+      ? Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
+          const Padding( //Text Jack wolfskin nya
             padding: EdgeInsets.symmetric(horizontal: defaultPadding),
             child: Text(
               "JACK WOLFSKIN",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 36
+                fontSize: 25,
               ),
             ),
           ),
-          const Cetegories(),
+          Padding( //searchbar
+            padding: const EdgeInsets.all(20),
+            child: TextField( //TextField itu gunanya untuk membuat search bar.
+              decoration: InputDecoration(
+                // focusedBorder: ,
+                hintText: 'Search products...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                prefixIcon: const Icon(Icons.search),
+              ),
+            ),
+          ),
+
+          const Cetegories(), //kategori list view.
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: GridView.builder( //nampilin list berbentuk column dan list
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount( //mengatur tata letak grid. ngebungkus widget biasa biar bisa di tempatin dalam custom scroll view dia itu lebih banyak opsi dari pada sliver
-                  crossAxisCount: 2, //biar ada 2.
-                  mainAxisSpacing: defaultPadding, 
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: defaultPadding,
                   crossAxisSpacing: defaultPadding,
-                  childAspectRatio: 0.75 //buat perbandingan tinggi 
+                  childAspectRatio: 0.75,
                 ),
-                itemCount: product.length, // biar nampilin sesuai data yang ada di model product.
-                itemBuilder: (context, index) => ItemsCard( 
+                itemCount: product.length,
+                itemBuilder: (context, index) => ItemsCard(
                   product: product[index],
                   press: () => Navigator.push(
                     context,
-                    MaterialPageRoute( //biar pindah halaman?
-                      builder: (context) => DetailScreen(product: product[index])
-                    )
-                  )
+                    MaterialPageRoute(
+                      builder: (context) => DetailScreen(product: product[index]),
+                    ),
+                  ),
                 ),
               ),
-            )
+            ),
           ),
         ],
+      ):
+      _widgetOptions [_selectedIndex],
+      bottomNavigationBar: BottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:e_commerce/consts.dart';
+import 'package:e_commerce/ui/auth/login_screen.dart';
 import 'package:e_commerce/ui/home/catalogue_screen.dart';
 import 'package:e_commerce/ui/splash/components/splash_content.dart';
 import 'package:flutter/material.dart';
@@ -85,7 +86,7 @@ class _BodyState extends State<Body> {
                       // Push untuk menggantikan halaman yang lain.
                       Navigator.push( //kode yang digunakan untuk berpindah antara halaman.
                         context, MaterialPageRoute( //context itu represent dari current page.
-                          builder: (context) => const CatalogueScreen())); //represent out curent page
+                          builder: (context) => LoginPage())); //represent out curent page
 
                     } else {
                       _pageController.animateToPage(
@@ -116,7 +117,7 @@ class _BodyState extends State<Body> {
       margin: const EdgeInsets.only(right: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: currentPage == index ? primaryColor : secondaryColor,
+        color: currentPage == index ? primaryColor : secondaryColor, //index untuk menandatakan array kbrp yg aktif
       ),
       width: currentPage == index ? 20 : 10, //kalo dia indexnya sama dengan current page maka dia bakal jadi 20 panjangnya kayak ngeaktifin
       height: 10,

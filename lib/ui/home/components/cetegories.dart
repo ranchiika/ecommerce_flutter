@@ -8,60 +8,78 @@ class Cetegories extends StatefulWidget {
   State<Cetegories> createState() => _CetegoriesState();
 }
 
-class _CetegoriesState extends State<Cetegories> { 
-  int selectedIndex = 0; //buat ngasih tau perubahan index yang sedang di pilih (Kayak current page.)
-  List<String> categories = [ //buat data2 nama2 categories product.
+class _CetegoriesState extends State<Cetegories> {
+  int selectedIndex = 0;
+  List<String> categories = [
     "Women",
     "Men",
     "Kid",
     "Tools"
   ];
 
+  List<IconData> categorieIcon =[
+    Icons.woman,
+    Icons.man,
+    Icons.child_care,
+    Icons.nature
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: defaultPadding), //buat list dulu pokoknya dah ya..
+      padding: const EdgeInsets.only(bottom: defaultPadding),
       child: SizedBox(
-        height: 25,
-        child: ListView.builder( //buat ngecreat horizontal
-          scrollDirection: Axis.horizontal, //buat ngasih tau scrollnya 
+        height: 50, // buat bagian height nya biar si listview tinggi
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
           itemCount: categories.length,
-          // item builder itu buat menampung atau membangun data yang akan ditampilkan di UI.
           itemBuilder: (context, index) => _buildCategory(index),
         ),
       ),
     );
   }
 
-  GestureDetector _buildCategory(int index) { //buat menyesuaikan dengan device nya. (Biar pake pen juga bisa.)
+  GestureDetector _buildCategory(int index) {
     return GestureDetector(
-        onTap: () {
-          setState(() { //buat nampilin perubahan.
-            selectedIndex = index; 
-          });
-        },
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-          child: Column(
-            children: [
-              Text(
-                categories[index],
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: selectedIndex == index ? primaryColor : secondaryColor,
-                )
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 13),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center, // Biar item di tengah
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), // nambahin padding si cetegories
+              decoration: BoxDecoration(
+                color: selectedIndex == index ? primaryColor : Colors.transparent,// Background color saat dipilih
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: primaryColor) // Membuat background melengkung
               ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 3
-                ),
-                height: 2,
-                width: 30,
-                color: selectedIndex == index ? primaryColor : secondaryColor,
-              )
-            ],
-          ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: Icon(
+                      categorieIcon[index],
+                      color: selectedIndex == index ? Colors.white : secondaryColor,
+                    ),
+                  ),
+                  Text(
+                    categories[index],
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: selectedIndex == index ? Colors.white : secondaryColor, // Ubah warna teks saat dipilih
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }

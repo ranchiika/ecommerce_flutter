@@ -23,10 +23,6 @@ class DetailScreen extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(Icons.search),
-          ),
-          IconButton(
-            onPressed: () {},
             icon: const Icon(Icons.shopping_cart_outlined),
           ),
         ],

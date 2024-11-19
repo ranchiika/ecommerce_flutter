@@ -26,14 +26,30 @@ class ItemsCard extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(defaultPadding),
+              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: product.color,
                 borderRadius: BorderRadius.circular(16)
               ),
-              child: Hero( //efek trasisi keren ke detail page (animasi transisi antar layar)
-                tag: "${product.id}", // untuk mendefinisikan tiap product, buat ambil id
-                child: Image.asset(product.image) // ini buat isian nya
+              child: Stack(
+                children: [
+                  Hero( //efek trasisi keren ke detail page (animasi transisi antar layar)
+                    tag: "${product.id}", // untuk mendefinisikan tiap product, buat ambil id
+                    child: Image.asset(product.image) // ini buat isian nya
+                  ),
+                  Container(
+                  padding: const EdgeInsets.all(6), // Padding untuk ikon
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.7), // Latar belakang dengan opasitas
+                          shape: BoxShape.circle, 
+                ),
+                 child: const Icon(
+                          Icons.favorite_border, 
+                          color: secondaryColor, 
+                          size: 20,
+                        ),
+                ),
+                ],
               ),
             ),
           ),
