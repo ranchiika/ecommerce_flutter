@@ -1,5 +1,7 @@
 import 'package:e_commerce/consts.dart';
+import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Cetegories extends StatefulWidget {
   const Cetegories({super.key});
@@ -26,6 +28,8 @@ class _CetegoriesState extends State<Cetegories> {
 
   @override
   Widget build(BuildContext context) {
+    // final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: defaultPadding),
       child: SizedBox(
@@ -55,7 +59,7 @@ class _CetegoriesState extends State<Cetegories> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8), // nambahin padding si cetegories
               decoration: BoxDecoration(
                 color: selectedIndex == index ? primaryColor : Colors.transparent,// Background color saat dipilih
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(10),
                 border: Border.all(color: primaryColor) // Membuat background melengkung
               ),
               child: Row(
@@ -64,14 +68,14 @@ class _CetegoriesState extends State<Cetegories> {
                     padding: const EdgeInsets.only(right: 5),
                     child: Icon(
                       categorieIcon[index],
-                      color: selectedIndex == index ? Colors.white : secondaryColor,
+                      color: selectedIndex == index ? Colors.white : textColor,
                     ),
                   ),
                   Text(
                     categories[index],
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: selectedIndex == index ? Colors.white : secondaryColor, // Ubah warna teks saat dipilih
+                      color: selectedIndex == index ? Colors.white : textColor, // Ubah warna teks saat dipilih
                     ),
                   ),
                 ],

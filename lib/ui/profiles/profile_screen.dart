@@ -1,4 +1,8 @@
+import 'package:e_commerce/consts.dart';
+import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -10,6 +14,8 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton( //body app bar itu leading, Leading digunakan untuk app.. Sesuatu widge yang dimasukkan ke app bar pake nya leading
@@ -38,86 +44,110 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     CircleAvatar(
                       radius: 50,
-                      backgroundImage: const AssetImage('assets/profile.png'),
+                      backgroundImage: const AssetImage('assets/images/profile_1.png'),
                     ),
-                    const Icon(Icons.camera_alt, color: Colors.white),
                   ],
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Chika Maharani',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+              Center(
+                child: Text(
+                  'Chika Maharani',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: themeProvider.isDarkTheme ? Colors.white : textColor
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Full Name',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: themeProvider.isDarkTheme ? Colors.white : textColor
                 ),
               ),
               const SizedBox(height: 8),
               TextField(
+                style: TextStyle(
+                  color: themeProvider.isDarkTheme ? Colors.white : textColor
+                ),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Chika Maharani',
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Email Address',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: themeProvider.isDarkTheme ? Colors.white : textColor
                 ),
               ),
               const SizedBox(height: 8),
                TextField(
+                style: TextStyle(
+                  color: themeProvider.isDarkTheme ? Colors.white : textColor
+                ),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'chika@gmail.com',
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 'Phone Number',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
+                  color: themeProvider.isDarkTheme ? Colors.white : textColor
                 ),
               ),
               const SizedBox(height: 8),
               TextField(
+                style: TextStyle(
+                  color: themeProvider.isDarkTheme ? Colors.white : textColor
+                ),
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: '08123456789',
                 ),
               ),
               const SizedBox(height: 20),
-              const Text(
-                'Address',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Tangerang Selatan',
-                ),
-              ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  // Logic to save profile changes
-                },
-                child: const Text('Save Changes'),
+                  onPressed: () {
+                      Fluttertoast.showToast(
+                        msg: "Change saved",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM, 
+                        backgroundColor: const Color.fromARGB(255, 195, 192, 192),
+                        textColor: Colors.black
+                      );
+                  }, 
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: primaryColor,
+                    minimumSize: const Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)
+                    ),
+                    textStyle: const TextStyle(
+                      fontWeight: FontWeight.bold
+                    )
+                    
+                  ),
+                  child:  const Text("Save Change", 
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+
+                    color: Colors.white,
+                    
+                  ),
+                ),
               ),
             ],
           ),

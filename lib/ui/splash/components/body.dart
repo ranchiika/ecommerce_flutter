@@ -1,8 +1,9 @@
 import 'package:e_commerce/consts.dart';
+import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:e_commerce/ui/auth/login_screen.dart';
-import 'package:e_commerce/ui/home/catalogue_screen.dart';
 import 'package:e_commerce/ui/splash/components/splash_content.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});
@@ -37,6 +38,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    // final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -77,6 +80,9 @@ class _BodyState extends State<Body> {
                 width: double.infinity, // widht nya ke tengah dengan titik kordinat 0.
                 child: ElevatedButton( //elevated paling cocok buat ini dan dia ini belom di styling jadi kita bisa styling.
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)
+                    ),
                     backgroundColor: primaryColor,
                   ),
                   onPressed: () {
@@ -117,7 +123,7 @@ class _BodyState extends State<Body> {
       margin: const EdgeInsets.only(right: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
-        color: currentPage == index ? primaryColor : secondaryColor, //index untuk menandatakan array kbrp yg aktif
+        color: currentPage == index ? primaryColor : textColor, //index untuk menandatakan array kbrp yg aktif
       ),
       width: currentPage == index ? 20 : 10, //kalo dia indexnya sama dengan current page maka dia bakal jadi 20 panjangnya kayak ngeaktifin
       height: 10,

@@ -1,13 +1,17 @@
 import 'package:e_commerce/consts.dart';
 import 'package:e_commerce/models/products.dart';
+import 'package:e_commerce/state-management/theme_provider.dart';
+import 'package:e_commerce/ui/cart/cart_screen.dart';
 import 'package:e_commerce/ui/detail/detail_screen.dart';
 import 'package:e_commerce/ui/home/components/bottom_nav_bar.dart';
+import 'package:e_commerce/ui/home/components/carousel.dart';
 import 'package:e_commerce/ui/home/components/cetegories.dart';
 import 'package:e_commerce/ui/home/components/item_card.dart';
 import 'package:e_commerce/ui/profiles/profile_screen.dart';
 import 'package:e_commerce/ui/settings/settings_screen.dart';
 import 'package:e_commerce/ui/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 class CatalogueScreen extends StatefulWidget {
   const CatalogueScreen({super.key});
 
@@ -20,7 +24,7 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
 
   final List<Widget> _widgetOptions = <Widget>[
     const CatalogueScreen(),
-    const FavouritePage(),
+    const WishlistScreen(),
     const SettingBeneran(),
     const ProfileScreen()
   ];
@@ -33,19 +37,31 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
+        backgroundColor: themeProvider.isDarkTheme ? Colors.black : Colors.white,
         elevation: 0,
+        title: Text("Jack Wolfskin"),
         actions: [
-          // IconButton(
-          //   onPressed: (){},
-          //   icon: const Icon(Icons.search),
-          // ),
-          IconButton(
-            onPressed: (){},
-            icon: const Icon(Icons.shopping_cart_outlined),
+          Row(
+            children: [
+              IconButton(
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> CartScreen()));
+                },
+                icon: const Icon(Icons.shopping_cart_outlined),
+              ),
+              IconButton(
+                    onPressed: () {
+                      Navigator.push(context, 
+                      MaterialPageRoute(builder: (context)=> WishlistScreen()));
+                    },
+                    icon: const Icon(Icons.favorite_border),
+                  ),
+            ],
           ),
         ],
       ),
@@ -53,30 +69,31 @@ class _CatalogueScreenState extends State<CatalogueScreen> {
       ? Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding( //Text Jack wolfskin nya
-            padding: EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: Text(
-              "JACK WOLFSKIN",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 25,
-              ),
-            ),
-          ),
+
           Padding( //searchbar
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: TextField( //TextField itu gunanya untuk membuat search bar.
               decoration: InputDecoration(
                 // focusedBorder: ,
                 hintText: 'Search products...',
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 prefixIcon: const Icon(Icons.search),
               ),
             ),
           ),
 
+          Center(
+            child: SimpleCarousel(
+              imageUrls: [
+                "assets/images/header1.png",
+                "assets/images/header2.png",
+                "assets/images/header3.png",
+              ],
+            ),
+          ),
+          
           const Cetegories(), //kategori list view.
           Expanded(
             child: Padding(

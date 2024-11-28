@@ -12,9 +12,10 @@ class SettingBeneran extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
+          title: Text(
             "Account & Settings",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold,
+            color: themeProvider.isDarkTheme ? Colors.white : Colors.black),
           ),
           actions: [
           IconButton(
@@ -29,7 +30,7 @@ class SettingBeneran extends StatelessWidget {
           // backgroundColor: Colors.white,
           centerTitle: true,
         ),
-        body: const Padding(
+        body:  Padding(
           padding: EdgeInsets.all(defaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +39,7 @@ class SettingBeneran extends StatelessWidget {
                 "Account",
                 style: TextStyle(
                     fontSize: 23,
-                    color: Colors.black,
+                    color: themeProvider.isDarkTheme ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold),   
               ),
               SizedBox(
@@ -46,13 +47,18 @@ class SettingBeneran extends StatelessWidget {
               ),
               AccountSettings(
                   icon: Icons.notifications_active_outlined,
-                  text: "Notification Settings"),
+                  text: "Notification Settings",
+                  color: themeProvider.isDarkTheme ? Colors.white : Colors.black,),
               AccountSettings(
-                  icon: Icons.shopping_cart_outlined, text: "Shopping Address"),
+                  icon: Icons.shopping_cart_outlined,
+                  text: "Shopping Address",
+                  color: themeProvider.isDarkTheme ? Colors.white : Colors.black,),
               AccountSettings(
-                  icon: Icons.payment_rounded, text: "Payment Info"),
+                  icon: Icons.payment_rounded, text: "Payment Info",
+                  color: themeProvider.isDarkTheme ? Colors.white : Colors.black,),
               AccountSettings(
-                  icon: Icons.delete_outline_rounded, text: "Delete Account"),
+                  icon: Icons.delete_outline_rounded, text: "Delete Account",
+                  color: themeProvider.isDarkTheme ? Colors.white : Colors.black,),
               SizedBox(
                 height: 40,
               ),
@@ -60,12 +66,12 @@ class SettingBeneran extends StatelessWidget {
                 "App Settings",
                 style: TextStyle(
                     fontSize: 23,
-                    color: Colors.black,
+                    color: themeProvider.isDarkTheme ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold),),
               SizedBox(height: 25,),
-              AppSet(text: "Enable Face ID For Log In"),
-              AppSet(text: "Enable Push Notifications"),
-              AppSet(text: "Enable Location Services"),
+              AppSet(
+                text: "Enable Push Notifications",
+              ),
             ],
           ),
         ));
@@ -94,12 +100,12 @@ class _AppSetState extends State<AppSet> {
           children: [
             Text(
               widget.text,
-              style: const TextStyle(fontSize: 20, color: Colors.black),
+              style: const TextStyle(fontSize: 20, color: textColor),
             ),
             const Spacer(),
             Switch(
               value: light,
-              activeColor: secondaryColor,
+              activeColor: primaryColor,
               onChanged: (bool value) {
                 setState(() {
                   light = value;
@@ -149,7 +155,7 @@ class AccountSettings extends StatelessWidget {
           ),
           Text(
             text,
-            style: const TextStyle(fontSize: 20, color: Colors.black),
+            style: const TextStyle(fontSize: 20, color: textColor),
           ),
           const Spacer(),
           Icon(

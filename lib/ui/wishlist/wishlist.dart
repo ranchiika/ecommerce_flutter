@@ -1,101 +1,56 @@
+import 'package:e_commerce/consts.dart';
+import 'package:e_commerce/state-management/wishlist_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class FavouritePage extends StatelessWidget {
-  const FavouritePage({super.key});
+class WishlistScreen extends StatelessWidget {
+  const WishlistScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+        title: const Text("Wishlist"),
+      ),
+      body: wishlistProvider.wishlistItem.isEmpty
+      ? const Center(
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.heart_broken_sharp,
+            color: Color.fromARGB(255, 167, 167, 167),
+            size: 100),
+            Text("Nothing wishlist",
+            style: TextStyle(
+              fontSize: 20
+            ),),
+          ],
         ),
-        title: const Text('Favourite'),
-      ),
-      body: GridView.count(
-        crossAxisCount: 2,
-        children: [
-          _buildFavouriteItem(
-            imageUrl: 'assets/images/jack_1.png',
-            title: 'Moonrise 3in1',
-            price: '\$21995',
-            isBestSeller: true,
-            colors: [Colors.yellow, Colors.teal],
-          ),
-          _buildFavouriteItem(
-            imageUrl: 'assets/images/jack_2.png',
-            title: 'Kaminfeuer Hooded',
-            price: '\$21995',
-            isBestSeller: true,
-            colors: [Colors.lightBlue, Colors.grey],
-          ),
-          _buildFavouriteItem(
-            imageUrl: 'assets/images/jack_3.png',
-            title: 'Eagle peak 2L',
-            price: '\$21995',
-            isBestSeller: true,
-            colors: [Colors.blue, Colors.yellow],
-          ),
-          _buildFavouriteItem(
-            imageUrl: 'assets/images/jack_4.png',
-            title: 'Highest Peak 3L',
-            price: '\$21995',
-            isBestSeller: true,
-            colors: [Colors.teal, Colors.blue],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFavouriteItem({
-    required String imageUrl,
-    required String title,
-    required String price,
-    required bool isBestSeller,
-    required List<Color> colors,
-  }) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Image.network (imageUrl, fit: BoxFit.cover),
-              if (isBestSeller)
-                Positioned(
-                  top: 8,
-                  left: 8,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    color: Colors.red,
-                    child: const Text(
-                      'BEST SELLER',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              title,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      )
+      
+      : ListView.builder(
+        itemCount: wishlistProvider.wishlistItem.length,
+        itemBuilder: (context, index) {
+          final wishlistItem = wishlistProvider.wishlistItem.values.toList()[index];
+          return Card(
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            child: ListTile(
+              leading: CircleAvatar(
+                backgroundImage: AssetImage(wishlistItem.image),
+              ),
+              title: Text(wishlistItem.title),
+              trailing: IconButton(
+                icon: const Icon(Icons.delete),
+                onPressed: (){
+                  wishlistProvider.removeItemFromFav(wishlistItem.id);
+                },
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              price,
-              style: const TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-          ),
-        ],
-      ),
+          );
+        }
+      )
     );
   }
 }

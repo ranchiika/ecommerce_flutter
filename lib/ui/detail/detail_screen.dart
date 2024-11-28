@@ -1,12 +1,16 @@
 import 'package:e_commerce/consts.dart';
 import 'package:e_commerce/models/products.dart';
+import 'package:e_commerce/state-management/theme_provider.dart';
+import 'package:e_commerce/ui/cart/cart_screen.dart';
 import 'package:e_commerce/ui/detail/components/add_to_cart.dart';
 import 'package:e_commerce/ui/detail/components/card_counter.dart';
 import 'package:e_commerce/ui/detail/components/color_and_size.dart';
 import 'package:e_commerce/ui/detail/components/description.dart';
 import 'package:e_commerce/ui/detail/components/fav_button.dart';
 import 'package:e_commerce/ui/detail/components/product_title.dart';
+import 'package:e_commerce/ui/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key, required this.product});
@@ -14,6 +18,9 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
+    int quantity = 1;
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: product.color,
@@ -21,10 +28,31 @@ class DetailScreen extends StatelessWidget {
         backgroundColor: product.color,
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.shopping_cart_outlined),
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, 
+                  MaterialPageRoute(builder: (context)=> CartScreen()));
+                },
+                icon: const Icon(Icons.shopping_cart_outlined),
+              ),
+              IconButton(
+                onPressed: () {
+                  Navigator.push(context, 
+                  MaterialPageRoute(builder: (context)=> WishlistScreen()));
+                },
+                icon: const Icon(Icons.favorite_border),
+              ),
+            ],
           ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.push(context, route)
+          //   },
+          //   icon: const Icon(Icons.favorite),
+          // ),
+          
         ],
       ),
       body: SingleChildScrollView(
@@ -42,8 +70,8 @@ class DetailScreen extends StatelessWidget {
                       left: defaultPadding,
                       right: defaultPadding,
                     ),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: themeProvider.isDarkTheme ? Colors.black : Colors.white,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24),
@@ -57,15 +85,17 @@ class DetailScreen extends StatelessWidget {
                         const SizedBox(height: defaultPadding),
                         Description(product: product),
                         const SizedBox(height: defaultPadding),
-                        const Row(
+                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CardCounter(),
-                            FavButton()
+                            CartCounter(product: product, onQuantityChanged: (curentQuantity ) { 
+                              quantity = curentQuantity;
+                             },),
+                            FavButton(product: product)
                           ],
                         ),
                         const SizedBox(height: defaultPadding),
-                        AddToCart(product: product),
+                        AddToCart(product: product, quantity: quantity,),
                       ],
                     ),
                   ),
