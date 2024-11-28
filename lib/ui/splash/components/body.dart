@@ -1,9 +1,7 @@
 import 'package:e_commerce/consts.dart';
-import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:e_commerce/ui/auth/login_screen.dart';
 import 'package:e_commerce/ui/splash/components/splash_content.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Body extends StatefulWidget {
   const Body({super.key});

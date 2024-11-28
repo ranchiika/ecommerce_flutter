@@ -1,7 +1,5 @@
 import 'package:e_commerce/consts.dart';
-import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Cetegories extends StatefulWidget {
   const Cetegories({super.key});

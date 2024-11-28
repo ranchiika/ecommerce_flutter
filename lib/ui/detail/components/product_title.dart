@@ -1,8 +1,6 @@
 import 'package:e_commerce/consts.dart';
 import 'package:e_commerce/models/products.dart';
-import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ProductTitle extends StatelessWidget {
   const ProductTitle({super.key, required this.product});
@@ -11,7 +9,7 @@ class ProductTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final themeProvider = Provider.of<ThemeProvider>(context);
+    // final themeProvider = Provider.of<ThemeProvider>(context);
 
     //definisiakn ukuran proposional gambar sebagai variable const
     const double imageWidthRatio = 0.60; //35% dari lebar layar

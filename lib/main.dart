@@ -10,7 +10,6 @@ import 'package:e_commerce/ui/splash/splash_screen.dart';
 import 'package:e_commerce/ui/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(

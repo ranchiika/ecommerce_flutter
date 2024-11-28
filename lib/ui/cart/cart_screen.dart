@@ -1,7 +1,5 @@
 import 'package:e_commerce/consts.dart';
-import 'package:e_commerce/models/products.dart';
 import 'package:e_commerce/state-management/cart_provider.dart';
-import 'package:e_commerce/ui/detail/components/add_to_cart.dart';
 import 'package:e_commerce/ui/home/catalogue_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

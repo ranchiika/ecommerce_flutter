@@ -1,4 +1,3 @@
-import 'package:e_commerce/consts.dart';
 import 'package:e_commerce/state-management/wishlist_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

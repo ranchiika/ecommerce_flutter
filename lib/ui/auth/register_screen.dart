@@ -1,7 +1,6 @@
 import 'package:e_commerce/consts.dart';
 import 'package:e_commerce/state-management/theme_provider.dart';
 import 'package:e_commerce/ui/auth/login_screen.dart';
-import 'package:e_commerce/ui/home/catalogue_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
